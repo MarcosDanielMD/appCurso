@@ -59,18 +59,17 @@ class CategoriaController extends Controller
         return view('altera_categoria',['registrosCategoria'=> $registrosCategoria]);
     }
 
-    public function AlterarBancoCategoria(Categoria $registrosCategoria, Request $request){
+      public function AlterarBancoCategoria(Categoria $registrosCategoria, Request $request){
         $registrosCat = $request->validate([
             'nomecategoria' => 'string|required'
-            ]);
-            
-            //altera o registro no banco
-            $registrosCategoria->id;
-            $registrosCategoria->save($registrosCat);
-    
+           ]);
+           
+           // Esta linha é que altera o registro no banco.
+        $registrosCategoria->fill($registrosCat);
+         $registrosCategoria->save();
 
 
-        //alert("Dados alterados com sucesso");
+       // alert("Dados alterados com sucesso");
         return Redirect::route('index');
     }
 }

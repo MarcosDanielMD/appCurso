@@ -35,8 +35,31 @@ class CursoController extends Controller
         'valor'=> 'string|required',
         ]);
 
-        Curso::create($registrosCurso);
+        Curso::create($registros);
 
+        return Redirect::route('index');
+    }
+
+    public function MostrarAlterarCurso(Curso $registrosCurso){
+        return view('altera_curso',['registrosCurso'=> $registrosCurso]);
+    }
+
+    public function AlterarBancoCurso(Curso $registrosCurso, Request $request){
+        $registros = $request->validate([
+            'idcategoria' => 'Integer|required',
+            'nomecurso' => 'string|required',
+            'cargahoraria'=> 'string|required',
+            'valor'=> 'numeric|required',
+
+           ]);
+
+
+           // Esta linha é que altera o registro no banco.
+         $registrosCurso->fill($registros);
+         $registrosCurso->save();
+
+
+       // alert("Dados alterados com sucesso");
         return Redirect::route('index');
     }
 }
